@@ -3,6 +3,7 @@
  */
 
 import {fireEvent, screen, waitFor} from "@testing-library/dom"
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event'
 import DashboardFormUI from "../views/DashboardFormUI.js"
 import DashboardUI from "../views/DashboardUI.js"
