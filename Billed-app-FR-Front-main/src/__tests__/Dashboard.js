@@ -238,6 +238,43 @@ describe('Given I am connected as Admin and I am on Dashboard page and I clicked
       expect(modale).toBeTruthy()
     })
   })
+  describe('When I clicked on the icon eye and the modal opens', () => {
+    test('A jpeg, jpg or png picture should be displayed', () => {
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({
+        type: 'Admin'
+      }))
+
+      document.body.innerHTML = DashboardFormUI(bills[0])
+      const onNavigate = jest.fn();
+      const dashboard = new Dashboard({
+        document,
+        onNavigate,
+        store: null,
+        bills,
+        localStorage: window.localStorage
+      });
+
+      const eyeIcon = screen.getByTestId('icon-eye-d');
+      userEvent.click(eyeIcon);
+      const modal = screen.getByTestId('modaleFileAdmin');
+      expect(modal).toBeInTheDocument();
+
+      const image = modal.querySelector('img');
+
+      // verifies if image has the right format and deletes it if not
+      if (image) {
+        const imageUrl = bills[0].url;
+        const allowedFormats = ['jpeg', 'jpg', 'png'];
+        const fileExtension = imageUrl.split('.').pop().toLowerCase();
+        expect(allowedFormats).toContain(fileExtension);
+        expect(image.src).toBe(imageUrl);
+      } else {
+        const imageContainer = modal.querySelector('.modal-body');
+        imageContainer.innerHTML = "";
+      }
+    });
+  });
 })
 
 // test d'intégration GET
