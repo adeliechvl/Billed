@@ -53,91 +53,94 @@ describe("Given I am connected as an employee", () => {
     });
   });
 
+
+  // Test d'intégration POST
   describe("When I want to submit a new bill", () => {
     test("Then, handleSubmit function should submit the form data correctly", () => {
       document.body.innerHTML = NewBillUI()
-        const onNavigate = (pathname) => {
-          document.body.innerHTML = ROUTES({ pathname })
-        }
-  
-        Object.defineProperty(window, 'localStorage', { value: localStorageMock })
-        window.localStorage.setItem('user', JSON.stringify({ type: 'Employee', email: "a@a.com" }))
-        const newBill = new NewBill({ document, onNavigate, store: null, localStorage: window.localStorage })
+      const onNavigate = (pathname) => {
+        document.body.innerHTML = ROUTES({ pathname })
+      }
 
-        const validBill = {
-          type: "Restaurants et bars",
-          name: "Vol Paris Montréal",
-          date: "2022-02-15",
-          amount: 200,
-          vat: 70,
-          pct: 30,
-          commentary: "Commentary",
-          fileUrl: "../img/0.jpg",
-          fileName: "test.jpg",
-          status: "pending"
-        }
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem('user', JSON.stringify({ type: 'Employee', email: "a@a.com" }))
+      const newBill = new NewBill({ document, onNavigate, store: null, localStorage: window.localStorage })
 
-        screen.getByTestId("expense-type").value = validBill.type
-        screen.getByTestId("expense-name").value = validBill.name
-        screen.getByTestId("datepicker").value = validBill.date
-        screen.getByTestId("amount").value = validBill.amount
-        screen.getByTestId("vat").value = validBill.vat
-        screen.getByTestId("pct").value = validBill.pct
-        screen.getByTestId("commentary").value = validBill.commentary
+      // submit un exemple de bill correct
+      const validBill = {
+        type: "Restaurants et bars",
+        name: "Vol Paris Montréal",
+        date: "2022-02-15",
+        amount: 200,
+        vat: 70,
+        pct: 30,
+        commentary: "Commentary",
+        fileUrl: "../img/0.jpg",
+        fileName: "test.jpg",
+        status: "pending"
+      }
 
-        const inputType = screen.getByTestId("expense-type");
-        fireEvent.change(inputType, {
-          target: { value: validBill.type },
-        });
-        expect(inputType.value).toBe(validBill.type);
+      screen.getByTestId("expense-type").value = validBill.type
+      screen.getByTestId("expense-name").value = validBill.name
+      screen.getByTestId("datepicker").value = validBill.date
+      screen.getByTestId("amount").value = validBill.amount
+      screen.getByTestId("vat").value = validBill.vat
+      screen.getByTestId("pct").value = validBill.pct
+      screen.getByTestId("commentary").value = validBill.commentary
 
-        const inputName = screen.getByTestId("expense-name");
-        fireEvent.change(inputName, {
-          target: { value: validBill.name },
-        });
-        expect(inputName.value).toBe(validBill.name);
+      const inputType = screen.getByTestId("expense-type");
+      fireEvent.change(inputType, {
+        target: { value: validBill.type },
+      });
+      expect(inputType.value).toBe(validBill.type);
 
-        const inputDate = screen.getByTestId("datepicker");
-        fireEvent.change(inputDate, {
-          target: { value: validBill.date },
-        });
-        expect(inputDate.value).toBe(validBill.date);
+      const inputName = screen.getByTestId("expense-name");
+      fireEvent.change(inputName, {
+        target: { value: validBill.name },
+      });
+      expect(inputName.value).toBe(validBill.name);
 
-        const inputAmount = screen.getByTestId("amount");
-        fireEvent.change(inputAmount, {
-          target: { value: validBill.amount },
-        });
-        expect(inputAmount.value).toBe(validBill.amount.toString());
+      const inputDate = screen.getByTestId("datepicker");
+      fireEvent.change(inputDate, {
+        target: { value: validBill.date },
+      });
+      expect(inputDate.value).toBe(validBill.date);
 
-        const inputVAT = screen.getByTestId("vat");
-        fireEvent.change(inputVAT, {
-          target: { value: validBill.vat },
-        });
-        expect(inputVAT.value).toBe(validBill.vat.toString());
+      const inputAmount = screen.getByTestId("amount");
+      fireEvent.change(inputAmount, {
+        target: { value: validBill.amount },
+      });
+      expect(inputAmount.value).toBe(validBill.amount.toString());
 
-        const inputPCT = screen.getByTestId("pct");
-        fireEvent.change(inputPCT, {
-          target: { value: validBill.pct },
-        });
-        expect(inputPCT.value).toBe(validBill.pct.toString());
+      const inputVAT = screen.getByTestId("vat");
+      fireEvent.change(inputVAT, {
+        target: { value: validBill.vat },
+      });
+      expect(inputVAT.value).toBe(validBill.vat.toString());
 
-        const inputCommentary = screen.getByTestId("commentary");
-        fireEvent.change(inputCommentary, {
-          target: { value: validBill.commentary },
-        });
-        expect(inputCommentary.value).toBe(validBill.commentary);
+      const inputPCT = screen.getByTestId("pct");
+      fireEvent.change(inputPCT, {
+        target: { value: validBill.pct },
+      });
+      expect(inputPCT.value).toBe(validBill.pct.toString());
 
-        newBill.fileName = validBill.fileName
-        newBill.fileUrl = validBill.fileUrl
-        newBill.updateBill = jest.fn()
+      const inputCommentary = screen.getByTestId("commentary");
+      fireEvent.change(inputCommentary, {
+        target: { value: validBill.commentary },
+      });
+      expect(inputCommentary.value).toBe(validBill.commentary);
 
-        const handleSubmit = jest.fn((e) => newBill.handleSubmit(e))
-        const button = screen.getByTestId("form-new-bill")
-        button.addEventListener("submit", handleSubmit)
-        fireEvent.submit(button)
-        
-        expect(handleSubmit).toHaveBeenCalled()
-        expect(newBill.updateBill).toHaveBeenCalled()
+      newBill.fileName = validBill.fileName
+      newBill.fileUrl = validBill.fileUrl
+      newBill.updateBill = jest.fn()
+
+      const handleSubmit = jest.fn((e) => newBill.handleSubmit(e))
+      const button = screen.getByTestId("form-new-bill")
+      button.addEventListener("submit", handleSubmit)
+      fireEvent.submit(button)
+
+      expect(handleSubmit).toHaveBeenCalled()
+      expect(newBill.updateBill).toHaveBeenCalled()
     });
   })
 });

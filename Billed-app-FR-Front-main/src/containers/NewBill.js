@@ -31,8 +31,8 @@ export default class NewBill {
     if (!allowedExtensions.includes(fileExtension)) {
       e.target.value = ''; // Effacer la sélection du fichier
       alert('Veuillez sélectionner un fichier avec une extension jpg, jpeg ou png.');
-    } 
-    
+    }
+
     this.store
       .bills()
       .create({

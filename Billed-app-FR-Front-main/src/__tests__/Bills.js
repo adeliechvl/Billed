@@ -2,13 +2,13 @@
  * @jest-environment jsdom
  */
 
-import {fireEvent, screen, waitFor} from "@testing-library/dom"
+import { fireEvent, screen, waitFor } from "@testing-library/dom"
 import Bills from "../containers/Bills.js"
 import BillsUI from "../views/BillsUI.js"
 import mockStore from "../__mocks__/store"
 import { bills } from "../fixtures/bills.js"
-import { ROUTES_PATH} from "../constants/routes.js";
-import {localStorageMock} from "../__mocks__/localStorage.js";
+import { ROUTES_PATH } from "../constants/routes.js";
+import { localStorageMock } from "../__mocks__/localStorage.js";
 import router from "../app/Router.js";
 
 jest.mock("../app/store", () => mockStore)
@@ -16,7 +16,6 @@ jest.mock("../app/store", () => mockStore)
 describe("Given I am connected as an employee", () => {
   describe("When I am on Bills Page", () => {
     test("Then bill icon in vertical layout should be highlighted", async () => {
-
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({
         type: 'Employee'
@@ -95,7 +94,7 @@ describe("Given I am connected as an employee", () => {
       expect(handleClickIconEye).toHaveBeenCalled();
       expect($.fn.modal).toHaveBeenCalled();
     })
-  })
+  });
 
   // test d'intégration GET
   describe("Given I am connected as an employee", () => {
