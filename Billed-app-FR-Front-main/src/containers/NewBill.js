@@ -21,6 +21,7 @@ export default class NewBill {
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length - 1]
     const allowedExtensions = ['jpg', 'jpeg', 'png']; // Limite les extensions de fichiers
+    const fileExtension = file.name.split('.').pop().toLowerCase();
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
@@ -30,8 +31,8 @@ export default class NewBill {
     if (!allowedExtensions.includes(fileExtension)) {
       e.target.value = ''; // Effacer la sélection du fichier
       alert('Veuillez sélectionner un fichier avec une extension jpg, jpeg ou png.');
-    }
-
+    } 
+    
     this.store
       .bills()
       .create({
