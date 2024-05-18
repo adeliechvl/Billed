@@ -28,6 +28,7 @@ describe("Given I am connected as an employee", () => {
       await waitFor(() => screen.getByTestId('icon-window'))
       const windowIcon = screen.getByTestId('icon-window')
 
+      // ajout expect manquant
       expect(windowIcon.classList.contains('active-icon')).toBe(true);
     })
 
@@ -35,7 +36,7 @@ describe("Given I am connected as an employee", () => {
       const antiChrono = (a, b) => ((a < b) ? -1 : 1)
       document.body.innerHTML = BillsUI({ data: bills })
       const dates = screen.getAllByText(/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i).map(a => a.innerHTML);
-      expect(dates).toEqual(dates.sort(antiChrono))
+      expect(dates).toEqual(dates.sort(antiChrono)) // résolution affichage des bills de manière décroissante
     })
   })
 
